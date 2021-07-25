@@ -1,4 +1,4 @@
-// app.js - Where you will complete the bulk of your project.
+// test app.js - Where you will complete the bulk of your project.
   
   const dino = {
         name: "Sandy",
