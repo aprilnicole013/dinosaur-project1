@@ -1,28 +1,18 @@
 // test app.js - Where you will complete the bulk of your project.
-  
-  const dino = {
-        name: "Sandy",
-        height: 60,
-        features: ["black stripes","brown skin"]
-    };
 
-    const human = {
-        name: "Patrick",
-        height: 6,
-        features: ["Muscular", "Athletic",]
-    };
-    
+function dino(weight, height, diet, where, when, fact){
+    this.weight = weight;
+    this.height = height;
+    this.diet = diet;
+    this.where = where;
+    this.when = when;
+    this.fact = fact;
+};
 
 
 
 
-// /images - Folder containing the images used for the project.
-    
-    
-    
-    
-    
-    
+    // /images - Folder containing the images used for the project.
     
     // Create Dino Constructor
 
