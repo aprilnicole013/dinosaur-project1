@@ -1,28 +1,37 @@
-// test app.js - Where you will complete the bulk of your project.
-
-function dino(weight, height, diet, where, when, fact){
-    this.weight = weight;
+// Create Dino Constructor
+function Dinosaur(species, weight, height, diet, where, when, fact, image) {
+    this.species = species;
     this.height = height;
     this.diet = diet;
     this.where = where;
     this.when = when;
     this.fact = fact;
+    this.image = image;
 };
 
+// Create Dino Objects
 
+const tracy = new Dinosaur("Triceratops", 13000, 114, "herbavor", "North America", "Late Cretaceous", "First discovered in 1889 by Othniel Charles Marsh", "Documents/dinosaur-project1/images/triceratops.png");
+const rex = new Dinosaur();
+const anklyo = new Dinosaur();
+const brachio = new Dinosaur();
+const stego = new Dinosaur();
+const elasmo = new Dinosaur();
+const pter = new Dinosaur();
+const pigeon = new Dinosaur();
 
+console.log(tracy)
 
-    // /images - Folder containing the images used for the project.
-    
-    // Create Dino Constructor
+// Create Human Object
+function Human(name, weight, height, diet, image) {
+    this.name = name;
+    this.weight = weight; // #ftx12 inches + inches
+    this.height = height;
+    this.diet = diet;
+    this.image = "/images/human.png";
+};
 
-
-    // Create Dino Objects
-
-
-    // Create Human Object
-
-    // Use IIFE to get human data from form
+// Use IIFE to get human data from form
 
 
     // Create Dino Compare Method 1
