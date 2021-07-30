@@ -1,9 +1,10 @@
 /* General Styles */
 /* app.css - containing the styling of the project. */
+/* General Styles */
 body {
     background: rgb(111, 208, 224);
     background: linear-gradient(0deg,rgb(111, 208, 224) 0%, rgb(171, 228, 167) 100%);
-    font-family: 'Frijole', 'Open Sans','Oswald';
+    font-family: 'Open Sans', sans-serif;
     text-align: center;
     min-height: 100vh;
 }
