@@ -1,5 +1,5 @@
 //TO DO: 
-// Get dino Array working to render tiles
+//set human tile
 //Compare methods (3)
 //Randomize facts shown
 
@@ -17,29 +17,31 @@ function Dinosaur(species, weight, height, diet, where, when, fact, imagePath) {
 
 // Fetch JSON
 fetch('dino.json')
-    .then(response => response.json())
-    .then(data => {getDinoArray(data.Dinos)})
-    .catch(function() {
-        console.log('An error occurred')
+    .then(response => response.json()) //get response from url
+    .then(data => {  //get data
+        getDinoArray(data.Dinos) //pass array of Dino objects into the getDinoArray function (line 34)
     })
+    .catch(error => console.log(`There was a data fetch error: ${error}`));
 
-// Create Dino Objects
+// Creating Dino Array from fetched data
 function getDinoArray(dinos) {
-    dinoArray = [];
+    dinoArray = []
     dinos.forEach((dino) => {
-        newDino = new Dinosaur(
-            dino.species,
-            dino.weight,
-            dino.height,
-            dino.diet,
-            dino.where,
-            dino.when,
-            dino.fact);
-            dinoArray.push(newDino)
+    newDinoObj = new Dinosaur(dino.species,
+        dino.weight,
+        dino.height,
+        dino.diet,
+        dino.where,
+        dino.when,
+        dino.fact)
+    dinoArray.push(newDinoObj)
+    
     });
     console.log(dinoArray)
     return dinoArray
 }
+
+
 
 // Create Human Object
 function Human(humanName, humanWeight, humanFeet, humanInches, humanDiet) {
@@ -116,20 +118,22 @@ function generateTiles(human) {
 }
 
 //Generate dino tiles
-function generateDinoTiles(dinoArray) {
+function generateDinoTiles(dinosaurArray) {
+    console.log(dinosaurArray)
     for (let i = 0; i < 9; i++) {
-        let dino = getDinoArray(dinoArray);
+        dino = dinosaurArray[i]
         let tile = document.createElement("div")
         tile.className = "grid-item"
-        
+
         let dinoTile = document.createElement("h2");
         dinoTile.innerHTML = `${dino.species}
-        <img src="${dino.imagePath}" alt="${dino.species}"/>
-        ${dino.diet}`;
+        <img src="images/${dino.species.toLowerCase()}.png" alt="${dino.species}"/>
+        <h4>${dino.diet}</h4>`;
 
         tile.appendChild(dinoTile);
+
+        document.querySelector("#grid").appendChild(tile);
     }
-    document.createElement("grid").appendChild(tile);
 }
 
 // Remove form from screen
