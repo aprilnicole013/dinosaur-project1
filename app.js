@@ -1,5 +1,4 @@
 //TO DO: 
-//set human tile
 //Compare methods (3)
 //Randomize facts shown
 
@@ -13,13 +12,25 @@ function Dinosaur(species, weight, height, diet, where, when, fact, imagePath) {
     this.when = when;
     this.fact = fact;
     this.imagePath = imagePath;
-};
-
+    // // Create Dino Compare Method 1
+    // this.compareWeight = function (human) {
+    //     let weightDifference = dino.weight - human.weight;
+    //     console.log(weightDifference);
+    // };
+    // // Create Dino Compare Method 2
+    // this.compareHeight = function (human) {
+    //     let heightDifference = dinos.height - human.feet * 12
+    //     console.log(heightDifference)
+    // };
+    // this.compareDiet = function (human) {
+    //     console.log(dino.diet, human.diet)
+    // }
+}
 // Fetch JSON
 fetch('dino.json')
     .then(response => response.json()) //get response from url
     .then(data => {  //get data
-        getDinoArray(data.Dinos) //pass array of Dino objects into the getDinoArray function (line 34)
+        getDinoArray(data.Dinos) //pass array of Dino objects into the getDinoArray function
     })
     .catch(error => console.log(`There was a data fetch error: ${error}`));
 
@@ -27,7 +38,8 @@ fetch('dino.json')
 function getDinoArray(dinos) {
     dinoArray = []
     dinos.forEach((dino) => {
-    newDinoObj = new Dinosaur(dino.species,
+    newDinoObj = new Dinosaur(
+        dino.species,
         dino.weight,
         dino.height,
         dino.diet,
@@ -40,8 +52,6 @@ function getDinoArray(dinos) {
     console.log(dinoArray)
     return dinoArray
 }
-
-
 
 // Create Human Object
 function Human(humanName, humanWeight, humanFeet, humanInches, humanDiet) {
@@ -67,73 +77,49 @@ function getHumanData(){
     })()
 };
 
-// Create Dino Compare Method 1
-// NOTE: Weight in JSON file is in lbs, height in inches.
-function compareWeight(){
-    let weightDifference = this.weight - human.weighteight;
-    if (weightDifference > 0) {
-        message = `<p>You weigh ${weightDifference} lbs less than ${this.species}!</p>`
-    } else if (weightDifference === 0) {
-        message = `<p>You weigh the same as this dinosaur!</p>`
-    } else (weightDifference < 0); {
-        message = `<p>You weigh ${weightDifference} lbs more than ${this.species}</p>!`
-    } return message
-};
+//Generate tiles
+function generateTiles(dinosaurArray, human) {
+    dinosaurArray.splice(4,0,human) // to insert dino into array
 
-// Create Dino Compare Method 2
-// NOTE: Weight in JSON file is in lbs, height in inches.
-function compareHeight(){
-    let heightDifference = dinos.height - human.feet * 12
-    if (heightDifference > 0) {
-        message = `<p>You are ${heightDifference + (getHumanData()).humanInches} inches than ${this.species}!</p>`
-    } else if (heightDifference = 0) {
-        message = `<p>You are the same height as ${this.species}!`
-    } else (heightDifference < 0); {
-        message = `<p>You are ${heightDifference + getHumanData().humanInches} inches shorter than ${this.species}!</p>`
-    } return message
-};
-
-// Create Dino Compare Method 3
-// NOTE: Weight in JSON file is in lbs, height in inches.
-function compareDiet(){
-    console.log(dinoArray, human)
-    if(this.diet === human.diet) {
-        message = `<p>You and ${this.species} have the same diet!</p>`
-    } else {
-        message = `<p>Your diet is different than ${this.species}</p>`
-    } return message
-};
-
-//Generate human tile
-function generateTiles(human) {
-    let tile = document.createElement("div")
-    tile.className = "grid-item"
-    let userTile = document.createElement("h2")
-    userTile.innerHTML = `${human.name}
-        <img src="images/human.png" alt="human"/>
-        ${human.diet}`
-    tile.appendChild(userTile);
-
-    document.getElementById("grid").appendChild(tile)
-}
-
-//Generate dino tiles
-function generateDinoTiles(dinosaurArray) {
-    console.log(dinosaurArray)
     for (let i = 0; i < 9; i++) {
-        dino = dinosaurArray[i]
+        let dino = dinosaurArray[i]
+        console.log(dino.species)
         let tile = document.createElement("div")
         tile.className = "grid-item"
 
-        let dinoTile = document.createElement("h2");
-        dinoTile.innerHTML = `${dino.species}
-        <img src="images/${dino.species.toLowerCase()}.png" alt="${dino.species}"/>
-        <h4>${dino.diet}</h4>`;
+        if(i === 4) {
+            let userTile = document.createElement("h2")
+            userTile.innerHTML = `<h2>${human.name}</h2>
+            <img src="images/human.png" alt="human"/>
+            <h4>${human.diet.toLowerCase()}</h4>`;
+            
+            tile.appendChild(userTile);
+        } else if (i === 8) {
+            let dinoTile = document.createElement("h2");
+            dinoTile.innerHTML = `<h2>${dino.species}</h2>
+            <img src="images/${dino.species.toLowerCase()}.png" alt="${dino.species}"/>
+            <h4>${dino.fact}</h4>`;
+        
+            tile.appendChild(dinoTile);
+        } else {
+            //randomize facts
+            // const randomFact = Math.floor(Math.randon() * 4)
+            // let jsonFact = dino.fact
+            // let dCW = dino.compareWeight(human.weight)
+            // let dCH = dino.compareHeight(human.feet, human.inches)
+            // let dCD = dino.comparDiet(human.diet)
+            // facts = [jsonFact, dCW, dCH, dCD]
 
-        tile.appendChild(dinoTile);
-
+            let dinoTile = document.createElement("h2");
+            dinoTile.innerHTML = `<h2>${dino.species}</h2>
+            <img src="images/${dino.species.toLowerCase()}.png" alt="${dino.species}"/>
+            <h4>${dino.diet}</h4>`;
+            
+            tile.appendChild(dinoTile);
+        }
         document.querySelector("#grid").appendChild(tile);
     }
+    console.log(dinosaurArray)
 }
 
 // Remove form from screen
@@ -147,11 +133,7 @@ const compareBtn = document.querySelector('#btn');
 
 compareBtn.addEventListener("click", function(){
         removehumanForm();
-        generateTiles(getHumanData());
-        generateDinoTiles(dinoArray);
+        generateTiles(dinoArray, getHumanData());
         getHumanData();
-        // getDinoArray();
-        // compareDiet();
-        // compareWeight();
-        // compareHeight();
+        getDinoArray();
     });
