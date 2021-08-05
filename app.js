@@ -12,9 +12,9 @@ function Dinosaur(species, weight, height, diet, where, when, fact, imagePath) {
     this.compareWeight = function (humanWeight) {
         let weightDifference = Math.abs(weight - Number(humanWeight));
         if (humanWeight < weight){
-            return `You weigh ${weightDifference} less than this dinosaur`;
+            return `You weigh ${weightDifference} lbs less than this dinosaur`;
         } else if (humanWeight > weight) {
-            return `You weigh ${weightDifference} more than this dinosaur`;
+            return `You weigh ${weightDifference} lbs more than this dinosaur`;
         } else {
             return `You weigh the same as this dinosaur!`
         }
@@ -31,6 +31,7 @@ function Dinosaur(species, weight, height, diet, where, when, fact, imagePath) {
             return `You and this dinosaur are the same height!`
         }
     };
+    // Create Dino Compare Method 3
     this.compareDiet = function (humanDiet) {
         if (diet === humanDiet) {
             message = `You have the same diet as this dinosaur`
@@ -40,13 +41,13 @@ function Dinosaur(species, weight, height, diet, where, when, fact, imagePath) {
         return message
     }
 }
+
 // Fetch JSON
 fetch('dino.json')
     .then(response => response.json()) //get response from url
     .then(data => {  //get data
         getDinoArray(data.Dinos) //pass array of Dino objects into the getDinoArray function
-    })
-    .catch(error => console.log(`There was a data fetch error: ${error}`));
+    });
 
 // Creating Dino Array from fetched data
 function getDinoArray(dinos) {
@@ -61,7 +62,6 @@ function getDinoArray(dinos) {
         dino.when,
         dino.fact)
     dinoArray.push(newDinoObj)
-    
     });
     console.log(dinoArray)
     return dinoArray
@@ -93,7 +93,7 @@ function getHumanData(){
 
 //Generate tiles
 function generateTiles(dinosaurArray, human) {
-    dinosaurArray.splice(4,0,human) // to insert dino into array
+    dinosaurArray.splice(4,0,human) // to insert human into array
 
     for (let i = 0; i < 9; i++) {
         let dino = dinosaurArray[i]
@@ -106,7 +106,7 @@ function generateTiles(dinosaurArray, human) {
             <img src="images/human.png" alt="human"/>`;
             
             tile.appendChild(userTile);
-        } else if (i === 8) {
+        } else if (i === 8) { // Pigeon tile
             let dinoTile = document.createElement("h2");
             dinoTile.innerHTML = `<h2>${dino.species}</h2>
             <img src="images/${dino.species.toLowerCase()}.png" alt="${dino.species}"/>
