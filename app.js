@@ -1,7 +1,3 @@
-//TO DO: 
-//Compare methods (3)
-//Randomize facts shown
-
 // Create Dino Constructor
 function Dinosaur(species, weight, height, diet, where, when, fact, imagePath) {
     this.species = species;
