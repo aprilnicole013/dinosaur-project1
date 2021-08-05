@@ -63,7 +63,6 @@ function getDinoArray(dinos) {
         dino.fact)
     dinoArray.push(newDinoObj)
     });
-    console.log(dinoArray)
     return dinoArray
 }
 
@@ -74,7 +73,7 @@ function Human(humanName, humanWeight, humanFeet, humanInches, humanDiet) {
     this.feet = humanFeet;
     this.inches = humanInches;
     this.diet = humanDiet;
-};
+}
 
 // Use IIFE to get human data from form
 function getHumanData(){
@@ -89,7 +88,7 @@ function getHumanData(){
         let human = new Human(humanName,humanWeight, humanFeet, humanInches, humanDiet, humanImage);
         return human
     })()
-};
+}
 
 //Generate tiles
 function generateTiles(dinosaurArray, human) {
@@ -131,13 +130,12 @@ function generateTiles(dinosaurArray, human) {
         }
         document.querySelector("#grid").appendChild(tile);
     }
-    console.log(dinosaurArray)
 }
 
 // Remove form from screen
 function removehumanForm(){
     document.querySelector("#dino-compare").style.display = "none"
-};
+}
 
 
 // On button click, prepare and display infographic
