@@ -12,19 +12,37 @@ function Dinosaur(species, weight, height, diet, where, when, fact, imagePath) {
     this.when = when;
     this.fact = fact;
     this.imagePath = imagePath;
-    // // Create Dino Compare Method 1
-    // this.compareWeight = function (human) {
-    //     let weightDifference = dino.weight - human.weight;
-    //     console.log(weightDifference);
-    // };
-    // // Create Dino Compare Method 2
-    // this.compareHeight = function (human) {
-    //     let heightDifference = dinos.height - human.feet * 12
-    //     console.log(heightDifference)
-    // };
-    // this.compareDiet = function (human) {
-    //     console.log(dino.diet, human.diet)
-    // }
+    // Create Dino Compare Method 1
+    this.compareWeight = function (humanWeight) {
+        let weightDifference = Math.abs(weight - Number(humanWeight));
+        if (humanWeight < weight){
+            return `You weigh ${weightDifference} less than this dinosaur`;
+        } else if (humanWeight > weight) {
+            return `You weigh ${weightDifference} more than this dinosaur`;
+        } else {
+            return `You weigh the same as this dinosaur!`
+        }
+    };
+    // Create Dino Compare Method 2
+    this.compareHeight = function (humanFeet, humanInches) {
+        let humanHeight = Number(humanFeet * 12) + Number(humanInches)
+        let heightDifference = Math.abs(height - humanHeight)
+        if (humanHeight < height){
+            return `You are ${heightDifference} inches shorter than this dinosaur`;
+        } else if (humanHeight > height) {
+            return `You are ${heightDifference} inches taller than this dinosaur`;
+        } else {
+            return `You and this dinosaur are the same height!`
+        }
+    };
+    this.compareDiet = function (humanDiet) {
+        if (diet === humanDiet) {
+            message = `You have the same diet as this dinosaur`
+        }else {
+            message = `Your diet is different than this dinosaur`
+        }
+        return message
+    }
 }
 // Fetch JSON
 fetch('dino.json')
@@ -83,15 +101,13 @@ function generateTiles(dinosaurArray, human) {
 
     for (let i = 0; i < 9; i++) {
         let dino = dinosaurArray[i]
-        console.log(dino.species)
         let tile = document.createElement("div")
         tile.className = "grid-item"
 
         if(i === 4) {
             let userTile = document.createElement("h2")
             userTile.innerHTML = `<h2>${human.name}</h2>
-            <img src="images/human.png" alt="human"/>
-            <h4>${human.diet.toLowerCase()}</h4>`;
+            <img src="images/human.png" alt="human"/>`;
             
             tile.appendChild(userTile);
         } else if (i === 8) {
@@ -103,17 +119,17 @@ function generateTiles(dinosaurArray, human) {
             tile.appendChild(dinoTile);
         } else {
             //randomize facts
-            // const randomFact = Math.floor(Math.randon() * 4)
-            // let jsonFact = dino.fact
-            // let dCW = dino.compareWeight(human.weight)
-            // let dCH = dino.compareHeight(human.feet, human.inches)
-            // let dCD = dino.comparDiet(human.diet)
-            // facts = [jsonFact, dCW, dCH, dCD]
+            const randomFact = Math.floor(Math.random() * 4)
+            let jsonFact = dino.fact
+            let dCW = dino.compareWeight(human.weight)
+            let dCH = dino.compareHeight(human.feet, human.inches)
+            let dCD = dino.compareDiet(human.diet)
+            facts = [jsonFact, dCW, dCH, dCD]
 
             let dinoTile = document.createElement("h2");
             dinoTile.innerHTML = `<h2>${dino.species}</h2>
             <img src="images/${dino.species.toLowerCase()}.png" alt="${dino.species}"/>
-            <h4>${dino.diet}</h4>`;
+            <h4>${facts[randomFact]}</h4>`;
             
             tile.appendChild(dinoTile);
         }
@@ -135,5 +151,4 @@ compareBtn.addEventListener("click", function(){
         removehumanForm();
         generateTiles(dinoArray, getHumanData());
         getHumanData();
-        getDinoArray();
     });
